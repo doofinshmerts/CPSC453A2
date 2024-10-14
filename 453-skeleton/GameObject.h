@@ -52,9 +52,6 @@ public:
     // constructor
     GameObject(Sprite *_sprite);
 
-    // destructor
-    ~GameObject();
-
     /**
      * add a child game object to this game object
      * @param child: the child game object to add

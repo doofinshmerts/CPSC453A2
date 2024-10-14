@@ -15,11 +15,6 @@ GameObject::GameObject(Sprite *_sprite)
     sprite = _sprite;
 }
 
-GameObject::~GameObject()
-{
-    delete sprite;
-}
-
 void GameObject::AddChild(GameObject *child)
 {
     // add this child to our list of children

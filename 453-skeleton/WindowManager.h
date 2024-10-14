@@ -35,9 +35,6 @@ public:
     // constructor
     WindowManager(int width, int height);
 
-    // destructor
-    ~WindowManager();
-
     /**
      * sets up the GLFW window
      * @return: false if window could not be created

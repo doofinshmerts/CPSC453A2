@@ -35,11 +35,6 @@ Diamond::Diamond(float _speed, float _direction, float x, float y, GraphicsManag
     rel_position = glm::vec2(x, y);
 }
 
-Diamond::~Diamond()
-{
-    delete fire_object;
-}
-
 void Diamond::Update(float delta_time)
 {
     if (!is_collected)

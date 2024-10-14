@@ -56,9 +56,6 @@ public:
      */
     GameManager(int _num);
 
-    // destructor
-    ~GameManager();
-
     /**
      * starts the game playing
      */

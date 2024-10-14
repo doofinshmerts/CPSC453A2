@@ -37,9 +37,6 @@ public:
     // constructor
     Ship(GraphicsManager *_manager);
 
-    // destructor
-    ~Ship();
-
     /**
      * Updates the game object and all of its children, sends coordinate information to its sprite
      * @param deltaTime: the time that has passed since the last update

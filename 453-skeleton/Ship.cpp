@@ -23,10 +23,6 @@ Ship::Ship(GraphicsManager *_manager) : GameObject(nullptr)
     axis_scale = 0.5f;
 }
 
-Ship::~Ship()
-{
-}
-
 void Ship::Update(float delta_time)
 {
     // update position based on move speed, direction, and delta time

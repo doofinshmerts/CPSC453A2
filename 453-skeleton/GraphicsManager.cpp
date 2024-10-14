@@ -160,15 +160,6 @@ bool GraphicsManager::SetupGraphicsManager(InputManager *_input)
     return true;
 }
 
-GraphicsManager::~GraphicsManager()
-{
-    delete fire_texture;
-    delete dimond_texture;
-    delete ship_texture;
-    delete shader_program;
-    delete window;
-}
-
 bool GraphicsManager::ShouldStop()
 {
     return window->ShoudWindowClose();

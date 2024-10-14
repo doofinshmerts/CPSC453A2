@@ -17,11 +17,6 @@ WindowManager::WindowManager(int width, int height)
     this->height = height;
 }
 
-WindowManager::~WindowManager()
-{
-    delete window;
-}
-
 bool WindowManager::SetupWindow()
 {
     // glfw: initialize and configure

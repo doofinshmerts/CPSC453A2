@@ -49,9 +49,6 @@ public:
      */
     Diamond(float _speed, float _direction, float x, float y, GraphicsManager *_manager);
 
-    // destructor
-    ~Diamond();
-
     /**
      * Updates the game object and all of its children, sends coordinate information to its sprite
      * makes the fire sprite move around the dimond sprite

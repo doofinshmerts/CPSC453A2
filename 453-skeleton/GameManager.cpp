@@ -167,14 +167,3 @@ void GameManager::ResetGame()
         dimonds[i] = diamond;
     }
 }
-
-GameManager::~GameManager()
-{
-    delete ship;
-    delete input_manager;
-    delete graphics_manager;
-    for (int i = 0; i < num_dimonds; i++)
-    {
-        delete dimonds[i];
-    }
-}

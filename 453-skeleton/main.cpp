@@ -9,10 +9,10 @@
 
 
 #include "GameManager.h"
-
+#include <iostream>
 int main()
 {
 	GameManager game_manager = GameManager(10);
 	game_manager.StartGame();
 	return 0;
-}
+} 

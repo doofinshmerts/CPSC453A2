@@ -90,9 +90,6 @@ public:
     // constructor
     GraphicsManager(int _num_sprites);
 
-    // destructor
-    ~GraphicsManager();
-
     /**
      * sets up everything needed for rendering
      * 1- initializes the arrays for the sprite data
