@@ -3,7 +3,7 @@
  * @name Holden Holzer
  * @email holden.holzer@ucalgary.ca
  *
- * Modified from provided 453-skeleton-A21 project files 
+ * Modified from provided 453-skeleton-A21 project files
  */
 
 #include "Dimond.h"
@@ -37,23 +37,35 @@ Diamond::Diamond(float _speed, float _direction, float x, float y, GraphicsManag
 
 void Diamond::Update(float delta_time)
 {
+    // if the diamond has not been collected by the ship then make the diamond move
     if (!is_collected)
     {
-        // if the diamond has not been collected by the ship then make the diamond move
-        glm::vec2 pos = GetWorldPosition();
-
-        // reflect off of walls of the world
-        if ((pos.x > 1.0f) || (pos.x < -1.0f))
-        {
-            direction = glm::vec2(-direction.x, direction.y);
-        }
-        else if ((pos.y > 1.0f) || (pos.y < -1.0f))
-        {
-            direction = glm::vec2(direction.x, -direction.y);
-        }
 
         // update position based on move speed, direction, and delta time
         rel_position = rel_position + direction * delta_time * speed;
+
+                // bound the diamonds position to between -1.0 and 1.0 and reflect it off walls
+        if (rel_position.x > 1.0f)
+        {
+            rel_position.x = 1.0f;
+            direction = glm::vec2(-direction.x, direction.y);
+        }
+        else if (rel_position.x < -1.0f)
+        {
+            rel_position.x = -1.0f;
+            direction = glm::vec2(-direction.x, direction.y);
+        }
+
+        if (rel_position.y > 1.0f)
+        {
+            rel_position.y = 1.0f;
+            direction = glm::vec2(direction.x, -direction.y);
+        }
+        else if (rel_position.y < -1.0f)
+        {
+            rel_position.y = -1.0f;
+            direction = glm::vec2(direction.x, -direction.y);
+        }
     }
 
     if (is_collected && parent != nullptr)

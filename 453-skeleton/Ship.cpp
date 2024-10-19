@@ -3,7 +3,7 @@
  * @name Holden Holzer
  * @email holden.holzer@ucalgary.ca
  *
- * Modified from provided 453-skeleton-A21 project files 
+ * Modified from provided 453-skeleton-A21 project files
  */
 
 #include "Ship.h"
@@ -30,6 +30,25 @@ void Ship::Update(float delta_time)
     sprite->position = GetWorldPosition();
     sprite->rotation = world_rotation;
     sprite->scale = local_scale * GetParentScaleFactor();
+
+    // bound the ships position to between -1.0 and 1.0
+    if (rel_position.x > 1.0f)
+    {
+        rel_position.x = 1.0f;
+    }
+    else if (rel_position.x < -1.0f)
+    {
+        rel_position.x = -1.0f;
+    }
+
+    if (rel_position.y > 1.0f)
+    {
+        rel_position.y = 1.0f;
+    }
+    else if (rel_position.y < -1.0f)
+    {
+        rel_position.y = -1.0f;
+    }
 
     // update the children
     for (int i = 0; i < children.size(); i++)
