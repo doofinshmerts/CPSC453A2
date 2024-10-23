@@ -3,7 +3,7 @@
  * @name Holden Holzer
  * @email holden.holzer@ucalgary.ca
  *
- * Modified from provided 453-skeleton-A21 project files 
+ * Modified from provided 453-skeleton-A21 project files
  */
 
 #include "GameObject.h"
@@ -11,6 +11,10 @@
 
 GameObject::GameObject(Sprite *_sprite)
 {
+    if (_sprite == nullptr)
+    {
+        return;
+    }
     // assign the sprite
     sprite = _sprite;
 }
@@ -30,10 +34,13 @@ void GameObject::AssignParent(GameObject *parent)
 
 void GameObject::Update(float deltaTime)
 {
-    // get position scale and rotation data and send it to the sprite
-    sprite->position = GetWorldPosition();
-    sprite->rotation = world_rotation;
-    sprite->scale = local_scale * GetParentScaleFactor();
+    if (sprite != nullptr)
+    {
+        // get position scale and rotation data and send it to the sprite
+        sprite->position = GetWorldPosition();
+        sprite->rotation = world_rotation;
+        sprite->scale = local_scale * GetParentScaleFactor();
+    }
 
     // update the children
     for (int i = 0; i < children.size(); i++)
@@ -94,4 +101,19 @@ void GameObject::SetBoundRadius(float radius)
 void GameObject::SetRelativePosition(glm::vec2 pos)
 {
     rel_position = pos;
+}
+
+void GameObject::SetWorldRotation(Rotation _rotation)
+{
+    world_rotation = _rotation;
+}
+
+void GameObject::SetAxisRotation(Rotation _rotation)
+{
+    axis_rotation = _rotation;
+}
+
+void GameObject::SetAxisScale(float _scale)
+{
+    axis_scale = _scale;
 }

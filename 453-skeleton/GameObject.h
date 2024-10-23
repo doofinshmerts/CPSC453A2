@@ -81,6 +81,25 @@ public:
     Rotation GetWorldRotation();
 
     /**
+     * sets the world rotation of an object
+     * @param _rotation: the rotation to rotate this object to
+     */
+    void SetWorldRotation(Rotation _rotation);
+
+    /**
+     * sets the axis rotation of the object
+     * @param _rotation: the rotation to set the axis rotation to
+     */
+    void SetAxisRotation(Rotation _rotation);
+
+    /**
+     * sets the axis scale factor
+     * @param _scale: the scale to set the axis scale to
+     */
+    void SetAxisScale(float _scale);
+
+
+    /**
      * gets the bounding radius of this object in world scale
      */
     float GetBoundRadius();

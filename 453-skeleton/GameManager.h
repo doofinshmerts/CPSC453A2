@@ -9,6 +9,7 @@
 #pragma once
 
 #include <vector>
+#include "Rotation.h"
 
 class Ship;
 class InputManager;
@@ -25,6 +26,10 @@ private:
     // set max speed of diamond
     const float DIAMOND_MAX_SPEED = 0.4f; // 2.0f would cross screen in one second
     const float DIAMOND_MIN_SPEED = 0.1f;
+    const float ORBIT_SPEED = 2.0f; // the speed that the fire orbits the dimonds
+
+    // the radial position of all fire sprites relative to their parents coordinate system
+    Rotation fire_rotation = 0.0f;
 
     // the number of pick up dimonds in the game
     int num_dimonds = 3;
@@ -41,6 +46,9 @@ private:
 
     // should the game restart
     bool should_restart = false;
+
+    // has the game been won
+    bool has_won = false;
 
 public:
     // public function here

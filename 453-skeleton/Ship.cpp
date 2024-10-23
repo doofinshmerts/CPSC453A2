@@ -8,6 +8,7 @@
 
 #include "Ship.h"
 #include "Sprite.h"
+#include "Dimond.h"
 
 #include <iostream>
 
@@ -20,7 +21,12 @@ Ship::Ship(GraphicsManager *_manager) : GameObject(nullptr)
     // set the ship bound radius (used for collision)
     bound_radius = 0.06f;
     // set the scale of its coordinate system (will make the child diamonds smaller)
-    axis_scale = 0.5f;
+    axis_scale = 0.3f;
+
+    // create the diamond holder (it does not have a graphic representation)
+    diamond_holder = new GameObject(nullptr);
+    diamond_holder->AssignParent(this);
+    diamond_holder->SetRelativePosition(glm::vec2(0.0f, -INITIAL_SPACING));
 }
 
 void Ship::Update(float delta_time)
@@ -30,6 +36,10 @@ void Ship::Update(float delta_time)
     sprite->position = GetWorldPosition();
     sprite->rotation = world_rotation;
     sprite->scale = local_scale * GetParentScaleFactor();
+
+    // rotate the diamond holder with the ship
+    diamond_holder->SetWorldRotation(world_rotation);
+    diamond_holder->SetAxisRotation(world_rotation);
 
     // bound the ships position to between -1.0 and 1.0
     if (rel_position.x > 1.0f)
@@ -99,4 +109,10 @@ bool Ship::HasShipMoved()
 void Ship::IncrementSize(float factor)
 {
     local_scale = local_scale * factor;
+    diamond_holder->SetRelativePosition(glm::vec2(0.0f, -INITIAL_SPACING*local_scale));
+}
+
+void Ship::PickUpDiamond(Diamond* _diamond, int score)
+{
+    _diamond->ParentToShip(diamond_holder, score);
 }

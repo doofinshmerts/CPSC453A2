@@ -44,7 +44,7 @@ void Diamond::Update(float delta_time)
         // update position based on move speed, direction, and delta time
         rel_position = rel_position + direction * delta_time * speed;
 
-                // bound the diamonds position to between -1.0 and 1.0 and reflect it off walls
+        // bound the diamonds position to between -1.0 and 1.0 and reflect it off walls
         if (rel_position.x > 1.0f)
         {
             rel_position.x = 1.0f;
@@ -68,14 +68,21 @@ void Diamond::Update(float delta_time)
         }
     }
 
-    if (is_collected && parent != nullptr)
+    if (parent != nullptr)
     {
-        // rotate the diamond with the parent
-        world_rotation = parent->GetWorldRotation() - 1.570796327f;
-    }
+        if (is_collected && (has_won == false))
+        {
+            // rotate the diamond with the parent
+            world_rotation = parent->GetWorldRotation() + 1.570796327f;
+        }
+        else if (has_won == true)
+        {
+            world_rotation = world_rotation - WIN_SPIN_SPEED * delta_time;
+        }
 
-    // make the fire rotate around by rotating the coordinate system of the diamond
-    axis_rotation = axis_rotation + ORBIT_SPEED * delta_time;
+        // make the fire object inherit the rotation of the ship
+        fire_object->SetWorldRotation(parent->GetWorldRotation() + 1.570796327f);
+    }
 
     // get position scale and rotation data and send it to the sprite
     sprite->position = GetWorldPosition();
@@ -132,11 +139,22 @@ int Diamond::ShipCollisionResult(glm::vec2 ship_position, float ship_radius)
     return 0;
 }
 
-void Diamond::ParentToShip(Ship *_ship, int score)
+void Diamond::ParentToShip(GameObject *_ship, int score)
 {
     is_collected = true;
     AssignParent(_ship);
 
     // place the diamond at the appropriate position in the ship
-    rel_position = glm::vec2(0.0f, -COLLECTED_SPACING * (float)score - 0.1f);
+    rel_position = glm::vec2(0.0f, -COLLECTED_SPACING * (float)score);
+}
+
+void Diamond::SetFireRotation(Rotation _rotation)
+{
+    // make the fire rotate around by rotating the coordinate system of the diamond
+    axis_rotation = _rotation;
+}
+
+void Diamond::SetGameWon(bool _game_won)
+{
+    has_won = _game_won;
 }

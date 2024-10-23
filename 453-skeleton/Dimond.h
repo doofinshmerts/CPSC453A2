@@ -19,12 +19,13 @@ class GraphicsManager;
 class Diamond : public GameObject
 {
 private:
-    // the constant factors for the orbit speed and distance of the fire sprite
+    // the distance that the fire sprite orbits the diamond at
     const float ORBIT_DIST = 0.15f;
-    const float ORBIT_SPEED = 2.0f;
+    // the speed that the diamond spins at when the game is won
+    const float WIN_SPIN_SPEED = 2.0f;
 
     // spacing from the ship when parented to the ship
-    const float COLLECTED_SPACING = 0.2f;
+    const float COLLECTED_SPACING = 0.3f;
 
     // private variables here
     GameObject *fire_object = nullptr;
@@ -38,6 +39,9 @@ private:
 
     // has the ship collected this diamond
     bool is_collected = false;
+
+    // has the game been won
+    bool has_won = false;
 
 public:
     // public function here
@@ -71,5 +75,17 @@ public:
      * @param ship: the ship to parent to
      * @param score: the current score so we know where to place the diamond on the ship
      */
-    void ParentToShip(Ship *ship, int score);
+    void ParentToShip(GameObject *ship, int score);
+
+    /**
+     * sets to rotation of the fire 
+     * @param _rotation: the rotation to rotate the fire to
+     */
+    void SetFireRotation(Rotation _rotation);
+
+    /**
+     * tell the diamond if the player has won the game or not
+     * @param _game_won: input truth value for if the game has been won
+     */
+    void SetGameWon(bool _game_won);
 };

@@ -3,13 +3,14 @@
  * @name Holden Holzer
  * @email holden.holzer@ucalgary.ca
  *
- * Modified from provided 453-skeleton-A21 project files 
+ * Modified from provided 453-skeleton-A21 project files
  */
 
 #pragma once
 
 #include "GameObject.h"
 class GraphicsManager;
+class Diamond;
 
 /**
  * type of game object that can be controlled by the player
@@ -17,6 +18,9 @@ class GraphicsManager;
 class Ship : public GameObject
 {
 private:
+    // spacing of the diamond holder from the ship
+    const float INITIAL_SPACING = 0.2f;
+
     // private variables here
     // the graphics manager that will render this objects sprite
     GraphicsManager *graphics_manager = nullptr;
@@ -30,6 +34,9 @@ private:
 
     // has the ship recived any move input from the player
     bool has_moved = false;
+
+    // holds the diamonds behind the ship
+    GameObject *diamond_holder = nullptr;
 
 public:
     // public function here
@@ -66,4 +73,10 @@ public:
      * @param factor: multiplies the existing ship size by factor
      */
     void IncrementSize(float factor);
+
+    /**
+     * parents a diamond to this ship
+     * @param _diamond: the diamond to pick up
+     */
+    void PickUpDiamond(Diamond* _diamond, int score);
 };

@@ -26,6 +26,8 @@ GameManager::GameManager(int _num)
 
 void GameManager::SetupGame()
 {
+    // the has won condition should be false at the start of the game
+    has_won = false;
     // initialize score to zero
     score = 0;
     // create a graphics manager
@@ -103,11 +105,15 @@ void GameManager::UpdateGame(float delta_time)
     // update the ship
     ship->Update(delta_time);
 
+    // increment the fire rotation by the apropriate amount
+    fire_rotation = fire_rotation + ORBIT_SPEED*delta_time;
+
     // update each diamond and check for collisions
     for (int i = 0; i < num_dimonds; i++)
     {
         // update the positions of each diamond
         dimonds[i]->Update(delta_time);
+        dimonds[i]->SetFireRotation(fire_rotation);
 
         // do not check for collisions if the player has not moved the ship at all
         if (!ship->HasShipMoved())
@@ -122,14 +128,22 @@ void GameManager::UpdateGame(float delta_time)
         case 1:
             // ship pickup diamond
             score++;
-            dimonds[i]->ParentToShip(ship, score);
-            ship->IncrementSize(1.2f);
+            ship->PickUpDiamond(dimonds[i], score);
+            ship->IncrementSize(1.1f);
             graphics_manager->UpdateScore(score);
 
-            // if all diamonds are collected then dispaly message
-            if (score == num_dimonds)
+            // if all diamonds are collected then dispaly message and make diamonds spin
+            if (score == num_dimonds && (has_won == false))
             {
+                // display GUI message
                 graphics_manager->DisplayWinMessage();
+                // tell diamonds to spin
+                for(int i = 0; i < num_dimonds; i++)
+                {
+                    dimonds[i]->SetGameWon(true);
+                }
+                // set has won to true so we do not do this again
+                has_won = true;
             }
 
             break;
